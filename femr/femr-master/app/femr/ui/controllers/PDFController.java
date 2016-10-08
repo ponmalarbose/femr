@@ -18,8 +18,6 @@
 */
 package femr.ui.controllers;
 
-import femr.business.services.core.*;
-import femr.common.models.*;
 import femr.data.models.mysql.*;
 import femr.common.dtos.ServiceResponse;
 import femr.ui.helpers.security.AllowedRoles;
@@ -28,6 +26,10 @@ import femr.util.DataStructure.Mapping.VitalMultiMap;
 import static femr.util.stringhelpers.StringUtils.*;
 import femr.util.DataStructure.Mapping.TabFieldMultiMap;
 import com.google.inject.Inject;
+import femr.business.services.core.IEncounterService;
+import femr.business.services.core.ISearchService;
+import femr.business.services.core.ITabService;
+import femr.business.services.core.IVitalService;
 
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.*;
@@ -449,11 +451,15 @@ public class PDFController extends Controller {
 
                     table.addCell(cell);
 
-                    Paragraph replacedMedName = new Paragraph(prescription.getName(), getValueFont());
+                    Paragraph replacedMedName = new Paragraph(prescription.getAmount()+ " " + prescription.getName() + " " + prescription.getMedicationForm(), getValueFont());
                     cell = new PdfPCell(replacedMedName);
                     table.addCell(cell);
                 } else {
-                    Paragraph medName = new Paragraph(prescription.getName(), getValueFont());
+                    Paragraph medName = new Paragraph(prescription.getAmount()+ " " + prescription.getName()+ " " + prescription.getMedicationForm(), getValueFont());
+                      cell = new PdfPCell(medName);
+                      table.addCell(cell);
+  
+
                     cell = new PdfPCell(medName);
                     table.addCell(cell);
 
